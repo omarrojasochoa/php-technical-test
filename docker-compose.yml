@@ -1,0 +1,39 @@
+services:
+  db:
+    image: mysql:5.7
+    container_name: php_technical_test_db
+    environment:
+      MYSQL_HOST: 204.93.224.158
+      MYSQL_DATABASE: cvphwudi_docfav
+      MYSQL_USER: cvphwudi_docfav
+      MYSQL_PASSWORD: "!Docfav2025"
+      MYSQL_ROOT_PASSWORD: "!Docfav2025"
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    entrypoint: ["mysqld", "--skip-grant-tables", "--skip-networking"]
+    networks:
+      - php-technical-test
+
+  php:
+    image: php:7.4-apache
+    container_name: php-technical-test-php
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+    networks:
+      - php-technical-test
+    ports:
+      - "80:80"
+    environment:
+      - VIRTUAL_HOST=localhost
+      - VIRTUAL_PORT=80
+
+networks:
+  php-technical-test:
+    driver: bridge
+
+volumes:
+  db_data:

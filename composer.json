@@ -1,0 +1,19 @@
+{
+  "name": "orojaso/php-technical-test",
+  "autoload": {
+    "psr-4": {
+      "Orojaso\\PhpTechnicalTest\\": "src/"
+    }
+  },
+  "require": {
+    "doctrine/orm": "^2.20",
+    "doctrine/cache": "^1.11",
+    "doctrine/annotations": "^1.11"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.6"
+  },
+  "config": {
+    "vendor-dir": "vendor"
+  }
+}
