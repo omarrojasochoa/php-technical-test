@@ -41,7 +41,10 @@ El proyecto incluye varias pruebas automatizadas para asegurar la correcta funci
 3. **Instalar las dependencias de PHP con Composer:**:
    docker-compose run --rm php composer install
 
-4. **Ejecutar las pruebas**:
+4. **Verificar Persitencia de datos con Doctrine:**:
+   php test_db_connection.php
+
+5. **Ejecutar las pruebas**:
     > Para verificar que las validaciones de correo electrónico y contraseña funcionen correctamente y que los usuarios se registren adecuadamente:
     ./vendor/bin/phpunit --stderr tests/Unit/RegisterUserUseCaseTest.php
 
