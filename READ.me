@@ -1,9 +1,52 @@
-# PHP Technical Test
+# Proyecto PHP Técnico
 
-Este proyecto es una prueba técnica para la posicion de Programador Full-Stack en Dashboard Technologies. Prueba tecnica backend en PHP.
+## Descripción
 
-## Cómo ejecutar el proyecto
+Este proyecto es una implementación técnica que permite registrar usuarios con validación de correo electrónico y contraseña, utilizando Doctrine para la persistencia en base de datos MySQL. La lógica de negocio sigue el enfoque de **Domain-Driven Design (DDD)**, y se utiliza el patrón **Ports and Adapters** para desacoplar la infraestructura del dominio.
 
-1. Clona el repositorio.
-2. Ejecuta `docker-compose up` para levantar el entorno.
-3. Accede a `http://localhost:8080` para la aplicación.
+## Estructura del Proyecto
+
+- **Entidades**: `User`, `Email`, `Password`, `UserId`, etc.
+- **Repositorio**: Implementación de `DoctrineUserRepository` para persistencia de datos.
+- **Caso de Uso**: `RegisterUserUseCase` para registrar usuarios.
+- **Controlador**: `RegisterUserController` que maneja las solicitudes HTTP.
+- **Excepciones**: `InvalidEmailException`, `WeakPasswordException`, `UserAlreadyExistsException`.
+
+## Pruebas
+
+El proyecto incluye varias pruebas automatizadas para asegurar la correcta funcionalidad de los componentes. A continuación se describe el propósito de cada conjunto de pruebas:
+
+### 1. **`RegisterUserUseCaseTest`** (Pruebas Unitarias)
+- **Propósito**: Verificar la correcta ejecución de la lógica del caso de uso `RegisterUserUseCase`.
+- **Qué verifica**: Asegura que las validaciones de correo electrónico y contraseña funcionen correctamente, y que los usuarios se registren adecuadamente.
+
+### 2. **`RegisterUserControllerTest`** (Pruebas de Integración)
+- **Propósito**: Validar la interacción entre el controlador `RegisterUserController` y el caso de uso `RegisterUserUseCase`.
+- **Qué verifica**: Se prueba que el controlador reciba correctamente la solicitud HTTP, pase los datos al caso de uso y devuelva la respuesta en formato JSON. También se verifica que las excepciones sean manejadas correctamente.
+
+### 3. **`UserRepositoryTest`** (Pruebas de Integración)
+- **Propósito**: Verificar la correcta integración del repositorio `DoctrineUserRepository` con la base de datos MySQL.
+- **Qué verifica**: Asegura que los métodos del repositorio (guardar, recuperar y eliminar usuarios) funcionen correctamente, interactuando con la base de datos a través de Doctrine.
+
+## Instrucciones para Ejecutar el Proyecto
+
+1. **Clonar el repositorio**:
+   ```bash
+   git clone https://github.com/omarrojasochoa/php-technical-test.git
+   cd php-technical-test
+
+2. **Levantar el contenedor Docker:**:
+   docker-compose up -d
+
+3. **Instalar las dependencias de PHP con Composer:**:
+   docker-compose run --rm php composer install
+
+4. **Ejecutar las pruebas**:
+    > Para verificar que las validaciones de correo electrónico y contraseña funcionen correctamente y que los usuarios se registren adecuadamente:
+    ./vendor/bin/phpunit --stderr tests/Unit/RegisterUserUseCaseTest.php
+
+    > Para comprobar que el controlador reciba correctamente la solicitud HTTP, pase los datos al caso de uso y devuelva la respuesta en formato JSON:
+    ./vendor/bin/phpunit --stderr tests/Integration/RegisterUserControllerTest.php
+
+    > Para asegurar que los métodos del repositorio (guardar, recuperar y eliminar usuarios) funcionen correctamente, interactuando con la base de datos a través de Doctrine:
+    ./vendor/bin/phpunit --stderr tests/Integration/UserRepositoryTest.php
